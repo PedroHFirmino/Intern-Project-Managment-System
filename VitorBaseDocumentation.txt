@@ -1,0 +1,70 @@
+// função para linkar planilha no app script, adicionar essa função ao arquivo .gs, somente alterando o nome do HTML
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Formulario')
+    .setTitle("Formulário de Projeto")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL); // permite incorporar no Google Sites
+}
+
+function salvarDados(dados) {
+  const planilha = SpreadsheetApp.openById("1FBx1Z2Zp7mBWNvN2tuHIJxpFx6laXC_bnO2Hf8sb_yQ");
+  const aba = planilha.getSheetByName("Usuarios");
+  aba.appendRow([dados.nome, dados.email, dados.departamento, dados.funcao, dados.observacoes, new Date()]);
+  return "sucesso";
+}
+
+//html base para a criação com o link para a planilha
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <script>
+      async function carregarDepartamentos() {
+        google.script.run.withSuccessHandler(function(opcoes) {
+          const select = document.getElementById("departamento");
+          select.innerHTML = '';
+          opcoes.forEach(nome => {
+            const opt = document.createElement("option");
+            opt.value = nome;
+            opt.textContent = nome;
+            select.appendChild(opt);
+          });
+        }).carregarDepartamentos();
+      }
+
+      function salvarFormulario() {
+        const dados = {
+          nome: document.getElementById("nome").value,
+          email: document.getElementById("email").value,
+          departamento: document.getElementById("departamento").value,
+          funcao: document.getElementById("funcao").value,
+          observacoes: document.getElementById("observacoes").value
+        };
+
+        google.script.run.withSuccessHandler(function(resposta) {
+          if (resposta === "sucesso") {
+            alert("Dados salvos com sucesso!");
+            document.getElementById("form").reset();
+          }
+        }).salvarDados(dados);
+      }
+
+      window.onload = carregarDepartamentos;
+    </script>
+  </head>
+  <body>
+    <form id="form">
+      <label>Nome:<br><input type="text" id="nome" required></label><br><br>
+      <label>Email:<br><input type="email" id="email" required></label><br><br>
+      <label>Departamento:<br>
+        <select id="departamento" required>
+          <option>Carregando...</option>
+        </select>
+      </label><br><br>
+      <label>Função:<br><input type="text" id="funcao" required></label><br><br>
+      <label>Observações:<br><textarea id="observacoes"></textarea></label><br><br>
+      <button type="button" onclick="salvarFormulario()">Salvar</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos</title>
+  </head>
+  <style>
+    :root {
+      --azul: #007bff;
+      --cinza-claro: #f5f5f5;
+      --cinza-borda: #ccc;
+      --branco: #ffffff;
+      --sombra: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: var(--cinza-claro);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: var(--branco);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px var(--sombra);
+    }
+    h2,
+    h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--cinza-borda);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .linha-dupla {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    #btnSalvar {
+      display: block;
+      margin: 1.5rem auto 0 auto;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      background-color: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #btnSalvar:hover {
+      background-color: #0056b3;
+    }
+    
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Cadastro Clientes</h2>
+      <form id="formUsuario" novalidate>
+        <div class="linha-dupla">
+            <div class="input-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" required />
+            </div>
+            <div class="input-group">
+                <label for="Organizacao">Organização</label>
+                <input type="text" id="Organizacao"  required />
+            </div>
+        </div>
+        <div class="linha-unica">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required />
+            </div>
+        </div>
+        <button id="btnSalvar" type="button">Salvar</button>
+      </form>
+    </div>
+  </body>
+</html>

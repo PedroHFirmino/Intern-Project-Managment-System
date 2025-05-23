@@ -8,42 +8,47 @@
 <body>
   <div class="container">
     <h2>Portfólio</h2>
-<form>
-    <div class="linha-dupla">
-      <div class="input-group">
-        <label for="portfolio">Nome do Portfólio</label>
-        <input type="text" id="portfolio" required/>
-      </div>
-</form>
 
-      <div class="input-group">
-        <label for="inicio">Data de Início</label>
-        <input type="date" id="startDate" min="2000-01-01" max="2050-12-31" required/>
-      </div>
-    </div>
+    <form method="post" action="https://script.google.com/a/macros/grupointegrado.br/s/AKfycbzDcqCNyWkpYQd20xpKcko6AuaXN8lpYa9NBykgRgg0VGH1v74K6MMv8JOiZ56bEn0/exec" id="form">
+      <div class="linha-dupla">
+        <div class="input-group">
+          <label for="portfolio">Nome do Portfólio</label>
+          <input type="text" id="portfolio" name="portfolio" required/>
+        </div>
 
-    <div class="linha-dupla">
-      <div class="input-group">
-        <label for="final">Data Final</label>
-        <input type="date" id="endDate" min="2000-01-01" max="2050-12-31"/>
+        <div class="input-group">
+          <label for="startDate">Data de Início</label>
+          <input type="date" id="startDate" name="startDate" min="2000-01-01" max="2050-12-31" required/>
+        </div>
       </div>
 
-      <div class="input-group">
-        <label for="url">URL do Portfolio</label>
-        <input type="tel" id="url" />
+      <div class="linha-dupla">
+        <div class="input-group">
+          <label for="endDate">Data Final</label>
+          <input type="date" id="endDate" name="endDate" min="2000-01-01" max="2050-12-31"/>
+        </div>
       </div>
-    </div>
 
+      <button id="btnSalvar" type="submit">Salvar</button>
+    </form>
 
-    <button id="btnSalvar" type="button">Salvar</button>
+    <div id="message"></div>
   </div>
 
+<script>
+  document.getElementById("form").addEventListener("submit", function(e){
+    e.preventDefault();
 
-</body>
+    const portfolio = document.getElementById("portfolio").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
 
-
-
-
+    google.script.run.withSuccessHandler(function(){
+      document.getElementById("message").innerText = "Portfólio Inserido com Sucesso";
+      document.getElementById("form").reset();
+    }).gravarUsuario(portfolio, startDate, endDate);
+  });
+</script>
 
 
 <style>

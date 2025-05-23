@@ -48,7 +48,8 @@
     }
 
     .input-group input,
-    .input-group textarea {
+    .input-group textarea,
+    .input-group select {
       width: 100%;
       padding: 0.6rem;
       border: 1px solid var(--cinza-borda);
@@ -79,123 +80,120 @@
     #btnSalvar:hover {
       background-color: #0056b3;
     }
-
-    .input-group {
-  margin-bottom: 15px;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 8px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input.erro-input, select.erro-input {
-  border-color: red;
-}
-
-small.erro {
-  color: red;
-  display: none;
-  font-size: 0.9em;
-}
+    
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
   </style>
   <body>
     <div class="container">
       <h2>Projetos</h2>
       <form id="formUsuario" novalidate>
-      <div class="linha-dupla">
-        <div class="input-group">
-          <label for="Lider">Nome do Lider Do Projeto</label>
-          <input type="text" id="departamento" placeholder="Selecione o lider" required/>
-          <small class="erro"></small>
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="Lider">Nome do Lider Do Projeto</label>
+            <select id="departamento" required>
+              <option value="">Selecione</option>
+            </select>
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="Cliente">Cliente</label>
+            <select id="Cliente">
+              <option value="">Selecione</option>
+            </select>
+            <small class="erro"></small>
+          </div>
         </div>
-        <div class="input-group">
-          <label for="cliente">Cliente Do Projeto</label>
-          <input type="text" id="cliente" />
-          <small class="erro"></small>
-        </div>
-      </div>
 
-      <div class="linha-dupla">
-        <div class="input-group">
-          <label for="projeto">Nome do Projeto</label>
-          <input type="text" id="projeto" />
-          <small class="erro"></small>
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="projeto">Nome do Projeto</label>
+            <input type="text" id="projeto" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="Objetivo">Objetivo Principal</label>
+            <input type="text" id="objtivo-principal" />
+            <small class="erro"></small>
+          </div>
         </div>
-        <div class="input-group">
-          <label for="data-inicio">Objetivo Princiapl</label>
-          <input type="text" id="objtivo-principal" />
-          <small class="erro"></small>
-        </div>
-      </div>
 
-      <div class="linha-dupla">
-        <div class="input-group">
-          <label for="justificativa-projeto">Justificativa Do Projeto</label>
-          <input type="text" id="Justificativa" />
-          <small class="erro"></small>
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="justificativa-projeto">Justificativa Do Projeto</label>
+            <input type="text" id="Justificativa" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="beneficio">Benefícios Esperados</label>
+            <input type="text" id="beneficio" />
+            <small class="erro"></small>
+          </div>
         </div>
-        <div class="input-group">
-          <label for="beneficio">Benefícios Esperados</label>
-          <input type="text" id="beneficio" />
-          <small class="erro"></small>
+
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="data-inicio">Data de Início</label>
+            <input type="date" id="data-inicio" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="data-fim">Data de Fim</label>
+            <input type="date" id="data-fim" />
+            <small class="erro"></small>
+          </div>
         </div>
-      </div>
-      
-      <div class="linha-dupla">
-        <div class="input-group">
-          <label for="data-inicio">Data de Início</label>
-          <input type="date" id="data-inicio" />
-          <small class="erro"></small>
+
+        <div class="linha-unica">
+          <div class="input-group">
+            <label for="portifolio">Portifólio</label>
+            <select id="portifolio">
+              <option value="">Selecione</option>
+            <small class="erro"></small>
+          </div>
         </div>
-        <div class="input-group">
-          <label for="data-fim">Data de Fim</label>
-          <input type="date" id="data-fim" />
-          <small class="erro"></small>
-        </div>
-      </div>
-      
-      <div class="linha-unica">
-        <div class="input-group">
-          <label for="portifolio">Portifólio</label>
-          <input type="text" id="portifolio"  />
-          <small class="erro"></small>
-        </div>
-      </div>
-      <button id="btnSalvar" type="button">Salvar</button>
+        <button id="btnSalvar" type="button">Salvar</button>
+      </form>
     </div>
-  </form>
 
-  <script>
-    document.getElementById("formUsuario").addEventListener("submit", function (e) {
-  e.preventDefault();
+    <script>
+      document
+        .getElementById("formUsuario")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-  let valido = true;
+          let valido = true;
 
-  const campos = this.querySelectorAll("input[required], select[required]");
-  campos.forEach(campo => {
-    const mensagemErro = campo.parentElement.querySelector(".erro");
+          const campos = this.querySelectorAll(
+            "input[required], select[required]"
+          );
+          campos.forEach((campo) => {
+            const mensagemErro = campo.parentElement.querySelector(".erro");
 
-    if (!campo.value.trim()) {
-      campo.classList.add("erro-input");
-      mensagemErro.textContent = "Este campo é obrigatório.";
-      mensagemErro.style.display = "block";
-      valido = false;
-    } else {
-      campo.classList.remove("erro-input");
-      mensagemErro.textContent = "";
-      mensagemErro.style.display = "none";
-    }
-  });
+            if (!campo.value.trim()) {
+              campo.classList.add("erro-input");
+              mensagemErro.textContent = "Este campo é obrigatório.";
+              mensagemErro.style.display = "block";
+              valido = false;
+            } else {
+              campo.classList.remove("erro-input");
+              mensagemErro.textContent = "";
+              mensagemErro.style.display = "none";
+            }
+          });
 
-  if (valido) {
-    // aqui você pode chamar sua função salvarUsuario()
-    alert("Formulário válido. Pronto para enviar os dados.");
-  }
-});
-  </script>
+          if (valido) {
+            // aqui você pode chamar sua função salvarUsuario()
+            alert("Formulário válido. Pronto para enviar os dados.");
+          }
+        });
+    </script>
   </body>
 </html>

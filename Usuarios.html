@@ -79,6 +79,16 @@
     #btnSalvar:hover {
       background-color: #0056b3;
     }
+    
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -98,7 +108,7 @@
     <div class="input-group">
       <label for="departamento">Departamento</label>
       <select id="departamento" required>
-        <option value="">Carregando...</option>
+        <option value="">Selecione</option>
       </select>
     </div>
 
@@ -106,6 +116,11 @@
       <label for="funcao">Função</label>
       <input type="text" id="funcao" placeholder="Digite sua função" required>
     </div>
+
+    <div class="input-group">
+        <label for="horas">Horas</label>
+        <input type="text" id="funcao" placeholder="Digite sua Valor De Horas" required>
+      </div>
 
     <div class="input-group">
       <label for="observacoes">Observações</label>

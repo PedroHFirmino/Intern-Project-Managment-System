@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos</title>
+  </head>
+  <style>
+    :root {
+      --azul: #007bff;
+      --cinza-claro: #f5f5f5;
+      --cinza-borda: #ccc;
+      --branco: #ffffff;
+      --sombra: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: var(--cinza-claro);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: var(--branco);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px var(--sombra);
+    }
+    h2,
+    h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--cinza-borda);
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .linha-dupla {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    #btnSalvar {
+      display: block;
+      margin: 1.5rem auto 0 auto;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      background-color: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #btnSalvar:hover {
+      background-color: #0056b3;
+    }
+    
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Projetos</h2>
+      <form id="formUsuario" novalidate>
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="Lider">Nome do Lider Do Projeto</label>
+            <select id="departamento" required>
+              <option value="">Selecione</option>
+            </select>
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="Cliente">Cliente</label>
+            <select id="Cliente">
+              <option value="">Selecione</option>
+            </select>
+            <small class="erro"></small>
+          </div>
+        </div>
+
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="projeto">Nome do Projeto</label>
+            <input type="text" id="projeto" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="Objetivo">Objetivo Principal</label>
+            <input type="text" id="objtivo-principal" />
+            <small class="erro"></small>
+          </div>
+        </div>
+
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="justificativa-projeto">Justificativa Do Projeto</label>
+            <input type="text" id="Justificativa" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="beneficio">Benefícios Esperados</label>
+            <input type="text" id="beneficio" />
+            <small class="erro"></small>
+          </div>
+        </div>
+
+        <div class="linha-dupla">
+          <div class="input-group">
+            <label for="data-inicio">Data de Início</label>
+            <input type="date" id="data-inicio" />
+            <small class="erro"></small>
+          </div>
+          <div class="input-group">
+            <label for="data-fim">Data de Fim</label>
+            <input type="date" id="data-fim" />
+            <small class="erro"></small>
+          </div>
+        </div>
+
+        <div class="linha-unica">
+          <div class="input-group">
+            <label for="portifolio">Portifólio</label>
+            <select id="portifolio">
+              <option value="">Selecione</option>
+            <small class="erro"></small>
+          </div>
+        </div>
+        <button id="btnSalvar" type="button">Salvar</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("formUsuario")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          let valido = true;
+
+          const campos = this.querySelectorAll(
+            "input[required], select[required]"
+          );
+          campos.forEach((campo) => {
+            const mensagemErro = campo.parentElement.querySelector(".erro");
+
+            if (!campo.value.trim()) {
+              campo.classList.add("erro-input");
+              mensagemErro.textContent = "Este campo é obrigatório.";
+              mensagemErro.style.display = "block";
+              valido = false;
+            } else {
+              campo.classList.remove("erro-input");
+              mensagemErro.textContent = "";
+              mensagemErro.style.display = "none";
+            }
+          });
+
+          if (valido) {
+            // aqui você pode chamar sua função salvarUsuario()
+            alert("Formulário válido. Pronto para enviar os dados.");
+          }
+        });
+    </script>
+  </body>
+</html>

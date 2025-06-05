@@ -4,7 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cadastrar Usuário</title>
-  <style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro de Usuário</h2>
+<form id="form">
+    <div class="input-group">
+      <label for="nome">Nome Completo</label>
+      <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+    </div>
+
+    <div class="input-group">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" placeholder="Digite seu e-mail" required>
+    </div>
+
+    <div class="input-group">
+      <label for="departamento">Departamento</label>
+      <select id="departamento" required>
+        <option value="">Selecione</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="funcao">Função</label>
+      <input type="text" id="funcao" placeholder="Digite sua função" required>
+    </div>
+
+    <div class="input-group">
+        <label for="horas">Horas</label>
+        <input type="text" id="horas" placeholder="Digite sua Valor De Horas" required>
+      </div>
+
+    <div class="input-group">
+      <label for="observacoes">Observações</label>
+      <textarea id="observacoes" placeholder="Digite observações relevantes (opcional)"></textarea>
+    </div>
+
+    <button id="btnSalvar">Salvar Usuário</button>
+    </form>
+  </div>
+  
+
+      <script>
+  document.getElementById("btnSalvar").addEventListener("click", function(e) {
+    e.preventDefault();
+
+    const dadosUser = {
+      nome: document.getElementById("nome").value,
+      email: document.getElementById("email").value,
+      departamento: document.getElementById("departamento").value,
+      funcao: document.getElementById("funcao").value,
+      horas: document.getElementById("horas").value,
+      observacoes: document.getElementById("observacoes").value
+    };
+
+    google.script.run.withSuccessHandler(function(resposta) {
+      if (resposta === "sucesso") {
+        alert("Dados salvos com sucesso!");
+        document.getElementById("form").reset();
+      } else {
+        alert("Erro ao salvar: " + resposta);
+      }
+    }).salvarDadosUsuarios(dadosUser);
+  });
+  
+</script>
+</body>
+</html>
+
+<style>
     :root {
       --azul: #007bff;
       --cinza-claro: #f5f5f5;
@@ -90,112 +159,3 @@
       box-sizing: border-box;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <h2>Cadastro de Usuário</h2>
-
-    <div class="input-group">
-      <label for="nome">Nome Completo</label>
-      <input type="text" id="nome" placeholder="Digite seu nome completo" required>
-    </div>
-
-    <div class="input-group">
-      <label for="email">E-mail</label>
-      <input type="email" id="email" placeholder="Digite seu e-mail" required>
-    </div>
-
-    <div class="input-group">
-      <label for="departamento">Departamento</label>
-      <select id="departamento" required>
-        <option value="">Selecione</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label for="funcao">Função</label>
-      <input type="text" id="funcao" placeholder="Digite sua função" required>
-    </div>
-
-    <div class="input-group">
-        <label for="horas">Horas</label>
-        <input type="text" id="funcao" placeholder="Digite sua Valor De Horas" required>
-      </div>
-
-    <div class="input-group">
-      <label for="observacoes">Observações</label>
-      <textarea id="observacoes" placeholder="Digite observações relevantes (opcional)"></textarea>
-    </div>
-
-    <button id="btnSalvar">Salvar Usuário</button>
-  </div>
-
-  <script>
-    const PLANILHA_ID = '1FBx1Z2Zp7mBWNvN2tuHIJxpFx6laXC_bnO2Hf8sb_yQ';
-    const abaDepartamentos = 'Departamentos';
-    const abaUsuarios = 'Usuarios';
-
-    // Preenche o dropdown de departamentos
-    async function carregarDepartamentos() {
-      const url = `https://opensheet.elk.sh/${PLANILHA_ID}/${abaDepartamentos}`;
-      try {
-        const response = await fetch(url);
-        const dados = await response.json();
-        const select = document.getElementById('departamento');
-        select.innerHTML = '<option value="">Selecione</option>';
-        dados.forEach(dep => {
-          if (dep.Nome) {
-            const option = document.createElement('option');
-            option.value = dep.Nome;
-            option.textContent = dep.Nome;
-            select.appendChild(option);
-          }
-        });
-      } catch (error) {
-        alert('Erro ao carregar departamentos');
-        console.error(error);
-      }
-    }
-
-    // Envia os dados para o Apps Script
-    async function salvarUsuario() {
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const departamento = document.getElementById('departamento').value;
-      const funcao = document.getElementById('funcao').value;
-      const observacoes = document.getElementById('observacoes').value;
-
-      if (!nome || !email || !departamento || !funcao) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-      }
-
-      const dados = {
-        nome, email, departamento, funcao, observacoes
-      };
-
-      try {
-        const resposta = await fetch("URL_DO_SEU_WEBAPP_DO_APPS_SCRIPT", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(dados)
-        });
-
-        const resultado = await resposta.json();
-        if (resultado.status === "sucesso") {
-          alert("Usuário cadastrado com sucesso!");
-          document.querySelector('form')?.reset();
-        } else {
-          throw new Error(resultado.mensagem || "Erro desconhecido.");
-        }
-      } catch (error) {
-        alert("Erro ao salvar usuário.");
-        console.error(error);
-      }
-    }
-
-    document.getElementById('btnSalvar').addEventListener('click', salvarUsuario);
-    carregarDepartamentos();
-  </script>
-</body>
-</html>

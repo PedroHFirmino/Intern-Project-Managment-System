@@ -35,5 +35,31 @@ function salvarDadosPortfolio(dados) {
   return "sucesso";
 }
 
-//
+// Projetos
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Projetos')
+    .setTitle("Formulário de Projetos")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function salvarDadosProjeto(dados) {
+  const planilha = SpreadsheetApp.openById("1FBx1Z2Zp7mBWNvN2tuHIJxpFx6laXC_bnO2Hf8sb_yQ");
+  const aba = planilha.getSheetByName("Projetos");
+
+  aba.appendRow([
+    dados.nome,
+    dados.objetivo,
+    dados.justificativa,
+    dados.beneficio,
+    dados.lider,
+    dados.cliente,
+    dados.dataInicio,
+    dados.dataFim,
+    dados.portfolio,
+    new Date()
+  ]);
+
+  return "sucesso";
+}
 

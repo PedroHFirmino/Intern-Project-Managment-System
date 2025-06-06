@@ -1,10 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projetos</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Projetos</h2>
+    <form id="Projetos">
+      <div class="linha-dupla">
+        <div class="input-group">
+          <label for="nome">Nome do Projeto</label>
+          <input type="text" id="nome" name="nome" required />
+        </div>
+        <div class="input-group">
+          <label for="objetivo">Objetivo Principal</label>
+          <input type="text" id="objetivo" name="objetivo" required />
+        </div>
+      </div>
+      <div class="linha-dupla">
+        <div class="input-group">
+          <label for="justificativa">Justificativa do Projeto</label>
+          <input type="text" id="justificativa" name="justificativa" required />
+        </div>      
+        <div class="input-group">
+          <label for="beneficio">Benefícios Esperados</label>
+          <input type="text" id="beneficio" name="beneficio" required />
+        </div>
+      </div>  
+        <div class="input-group">
+          <label for="lider">Líder do Projeto</label>
+          <input type="text" id="lider" name="lider" required />
+        </div>
+                         
+        <div class="input-group">
+          <label for="cliente">Cliente</label>
+          <input type="text" id="cliente" name="cliente" required />
+        </div>
+      <div class="linha-dupla">
+        <div class="input-group">
+          <label for="dataInicio">Data de Início</label>
+          <input type="date" id="dataInicio" name="dataInicio" required />
+        </div>
+        <div class="input-group">
+          <label for="dataFim">Data de Fim</label>
+          <input type="date" id="dataFim" name="dataFim" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="portfolio">Portfólio</label>
+        <input type="text" id="portfolio" name="portfolio" required />
+      </div>
+
+      <button id="btnSalvar" type="submit">Salvar</button>
+    </form>
+  </div>
+</div> 
+  <script>
+    const form = document.getElementById("formUsuario");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const dados = {
+        nome: form.nome.value,
+        objetivo: form.objetivo.value,
+        justificativa: form.justificativa.value,
+        beneficio: form.beneficio.value,
+        lider: form.lider.value,
+        cliente: form.cliente.value,
+        dataInicio: form.dataInicio.value,
+        dataFim: form.dataFim.value,
+        portfolio: form.portfolio.value
+      };
+
+      google.script.run
+        .withSuccessHandler(function(res) {
+          alert("Dados enviados com sucesso!");
+          form.reset();
+        })
+        .withFailureHandler(function(err) {
+          alert("Erro ao enviar: " + err.message);
+        })
+        .salvarDadosProjeto(dados);
+    });
+  </script>
+</body>
+</html>
+
   <style>
     :root {
       --azul: #007bff;
@@ -29,8 +114,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 20px var(--sombra);
     }
-    h2,
-    h3 {
+    h2 {
       text-align: center;
       margin-bottom: 1.5rem;
       color: #333;
@@ -80,120 +164,4 @@
     #btnSalvar:hover {
       background-color: #0056b3;
     }
-    
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 8px;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
   </style>
-  <body>
-    <div class="container">
-      <h2>Projetos</h2>
-      <form id="formUsuario" novalidate>
-        <div class="linha-dupla">
-          <div class="input-group">
-            <label for="Lider">Nome do Lider Do Projeto</label>
-            <select id="departamento" required>
-              <option value="">Selecione</option>
-            </select>
-            <small class="erro"></small>
-          </div>
-          <div class="input-group">
-            <label for="Cliente">Cliente</label>
-            <select id="Cliente">
-              <option value="">Selecione</option>
-            </select>
-            <small class="erro"></small>
-          </div>
-        </div>
-
-        <div class="linha-dupla">
-          <div class="input-group">
-            <label for="projeto">Nome do Projeto</label>
-            <input type="text" id="projeto" />
-            <small class="erro"></small>
-          </div>
-          <div class="input-group">
-            <label for="Objetivo">Objetivo Principal</label>
-            <input type="text" id="objtivo-principal" />
-            <small class="erro"></small>
-          </div>
-        </div>
-
-        <div class="linha-dupla">
-          <div class="input-group">
-            <label for="justificativa-projeto">Justificativa Do Projeto</label>
-            <input type="text" id="Justificativa" />
-            <small class="erro"></small>
-          </div>
-          <div class="input-group">
-            <label for="beneficio">Benefícios Esperados</label>
-            <input type="text" id="beneficio" />
-            <small class="erro"></small>
-          </div>
-        </div>
-
-        <div class="linha-dupla">
-          <div class="input-group">
-            <label for="data-inicio">Data de Início</label>
-            <input type="date" id="data-inicio" />
-            <small class="erro"></small>
-          </div>
-          <div class="input-group">
-            <label for="data-fim">Data de Fim</label>
-            <input type="date" id="data-fim" />
-            <small class="erro"></small>
-          </div>
-        </div>
-
-        <div class="linha-unica">
-          <div class="input-group">
-            <label for="portifolio">Portifólio</label>
-            <select id="portifolio">
-              <option value="">Selecione</option>
-            <small class="erro"></small>
-          </div>
-        </div>
-        <button id="btnSalvar" type="button">Salvar</button>
-      </form>
-    </div>
-
-    <script>
-      document
-        .getElementById("formUsuario")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          let valido = true;
-
-          const campos = this.querySelectorAll(
-            "input[required], select[required]"
-          );
-          campos.forEach((campo) => {
-            const mensagemErro = campo.parentElement.querySelector(".erro");
-
-            if (!campo.value.trim()) {
-              campo.classList.add("erro-input");
-              mensagemErro.textContent = "Este campo é obrigatório.";
-              mensagemErro.style.display = "block";
-              valido = false;
-            } else {
-              campo.classList.remove("erro-input");
-              mensagemErro.textContent = "";
-              mensagemErro.style.display = "none";
-            }
-          });
-
-          if (valido) {
-            // aqui você pode chamar sua função salvarUsuario()
-            alert("Formulário válido. Pronto para enviar os dados.");
-          }
-        });
-    </script>
-  </body>
-</html>

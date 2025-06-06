@@ -63,3 +63,21 @@ function salvarDadosProjeto(dados) {
   return "sucesso";
 }
 
+// Clientes
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Clientes')
+     .setTitle("Formulário de Clientes")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function salvarDadosCliente(dados){
+  const planilha = SpreadsheetApp.openById("1FBx1Z2Zp7mBWNvN2tuHIJxpFx6laXC_bnO2Hf8sb_yQ");
+  const aba = planilha.getSheetByName("Clientes");
+  aba.appendRow([
+    dados.nome,
+    dados.organizacao,
+    dados.email,
+  ]);
+  return "sucesso";
+}  

@@ -81,3 +81,41 @@ function salvarDadosCliente(dados){
   ]);
   return "sucesso";
 }  
+
+// Departamentos
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Departamentos')
+    .setTitle("Cadastro de Departamento")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function salvarDadosDepartamento(dados) {
+  const planilha = SpreadsheetApp.openById("1FBx1Z2Zp7mBWNvN2tuHIJxpFx6laXC_bnO2Hf8sb_yQ"); 
+  const aba = planilha.getSheetByName("Departamentos");
+
+  if (aba.getLastRow() === 0) {
+    aba.appendRow([
+      "Departamento", "Líder", "Email", "Telefone", "Observações", "Dia", "Início Trabalho", "Início Descanso", "Fim Descanso", "Fim Trabalho", "Carga"
+    ]);
+  }
+
+  // Salva os dados do formulário, incluindo horários por dia
+  dados.horarios.forEach(h => {
+    aba.appendRow([
+      dados.departamento,
+      dados.lider,
+      dados.email,
+      dados.telefone,
+      dados.observacoes,
+      h.dia,
+      h.inicioTrabalho,
+      h.inicioDescanso,
+      h.fimDescanso,
+      h.fimTrabalho,
+      h.carga
+    ]);
+  });
+
+  return "sucesso";
+}
